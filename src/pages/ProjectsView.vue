@@ -1,12 +1,15 @@
 <script setup lang="ts">
-
+import { ModeSwitch } from '../features'
 </script>
 
 <template>
-  <div>Тут вкалдка проектов</div>
+  <div class="container">
+    <mode-switch />
+    <div>Тут вкалдка проектоdв</div>
+  </div>
 </template>
 
 
-<style>
+<style lang="postcss" scoped>
 
 </style>

@@ -1,0 +1,35 @@
+.mode-switch {
+
+    .mode-switch__switches {
+        display: flex;
+
+        .mode-switch__switches__switch {
+            padding: 6px 12px;
+            background: inherit;
+            border: none;
+        }
+
+        .mode-switch__switches__switch_active {
+            background: var(--vt-c-white);
+            border-top-left-radius: var(--vt-default-radius);
+            border-top-right-radius: var(--vt-default-radius);
+        }
+        
+        .mode-switch__switches__date {
+            margin-left: auto;
+            padding: 6px 12px;
+        }
+    }
+
+    .mode-switch__container {
+        padding: 16px;
+        background: var(--vt-c-white);
+        border-radius: var(--vt-default-radius);
+
+        .mode-switch__container__banner {
+            padding: 20px;
+            background: var(--vt-c-green-gradient);
+            border-radius: var(--vt-default-radius);
+        }
+    }
+}
