@@ -9,7 +9,6 @@ const projectStore = useProjectStore();
 const { t } = useI18n();
 
 const projects = computed(() => projectStore.getProjects);
-const projectsCount = computed(() => projects.value.length);
 
 onMounted(() => {
   projectStore.getAllProjects();
@@ -21,7 +20,6 @@ onMounted(() => {
     <mode-switch />
     <div class="project-subtitle">
       <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
-      <span class="project-subtitle__project-count">{{ projectsCount }}</span>
     </div>
     <tradition-list />
   </div>
