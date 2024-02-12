@@ -7,17 +7,21 @@
             padding: 6px 12px;
             background: inherit;
             border: none;
+            color: var(--vt-c-font-grey);
         }
 
         .mode-switch__switches__switch_active {
             background: var(--vt-c-white);
             border-top-left-radius: var(--vt-default-radius);
             border-top-right-radius: var(--vt-default-radius);
+            box-shadow: var(--vt-default-button-shadow);
+            color: var(--vt-c-font-green);
         }
         
         .mode-switch__switches__date {
             margin-left: auto;
             padding: 6px 12px;
+            color: var(--vt-c-font-grey);
         }
     }
 
@@ -25,11 +29,29 @@
         padding: 16px;
         background: var(--vt-c-white);
         border-radius: var(--vt-default-radius);
+        box-shadow: var(--vt-default-shadow);
 
         .mode-switch__container__banner {
             padding: 20px;
-            background: var(--vt-c-green-gradient);
+            height: 150px;
+            display: flex;
+            flex-direction: column;
             border-radius: var(--vt-default-radius);
+            color: var(--vt-c-white);
+
+            .banner__count {
+                margin-top: auto;
+                font-size: 32px;
+                font-weight: 500;
+            }
+        }
+
+        .receipts {
+            background: var(--vt-c-green-gradient);
+        }
+
+        .expenses {
+            background: var( --vt-c-red-gradient);
         }
     }
 }

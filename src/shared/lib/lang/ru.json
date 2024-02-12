@@ -2,5 +2,9 @@
     "projects": {
         "receipts": "Поступления",
         "expenses": "Расходы"
+    },
+    "banner": {
+        "receipts": "Поступления за сегодня",
+        "expenses": "Расходы за сегодня"
     }
 }
