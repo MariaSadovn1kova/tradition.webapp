@@ -3,7 +3,9 @@
 </script>
 
 <template>
-    <button class="button__container">{{'Кнопка'}}</button>
+    <button class="button__container">
+        <slot/>
+    </button>
 </template>
 
 

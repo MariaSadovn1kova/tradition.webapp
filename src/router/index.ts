@@ -6,8 +6,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../pages/ProjectsView.vue')
-    },
+      component: () => import('../pages/ProjectsView.vue'),
+    }, 
+    {
+      path: '/:projectID/objects',
+      name: 'objects',
+      component: () => import('@/pages/ObjectsView.vue'),
+    }, 
+    {
+      path: '/:projectID/:objectID',
+      name: 'object',
+      component: () => import('@/pages/ObjectView.vue'),
+    }
   ]
 })
 

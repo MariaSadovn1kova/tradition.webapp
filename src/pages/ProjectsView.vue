@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
-import { ModeSwitch, TraditionList } from '../features'
+import { ModeSwitch, TraditionList, TraditionButton } from '../features'
 import { useProjectStore } from '@/entities';
 
 const projectStore = useProjectStore();
@@ -11,11 +11,14 @@ const { t } = useI18n();
 const projects = computed(() => projectStore.getProjects);
 
 onMounted(() => {
-  projectStore.getAllProjects();
+  projectStore.fetchProjects();
 });
 </script>
 
 <template>
+  <tradition-button class="main-button"> 
+    <span>{{ $t(`projects.create_project`) }}</span>
+  </tradition-button>
   <div class="project-container">
     <mode-switch />
     <div class="project-subtitle">

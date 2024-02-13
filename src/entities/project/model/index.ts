@@ -9,7 +9,7 @@ export const useProjectStore = defineStore('project', {
       projects: 'receipts'
     }),
     actions: {
-      getAllProjects() {
+      fetchProjects() {
         this.projects = [
             {
               title: 'Проект 1',

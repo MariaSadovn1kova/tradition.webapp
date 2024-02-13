@@ -6,7 +6,7 @@ const formattedAmount = computed(() => formattedNumber(5000));
 </script>
 
 <template>
-  <div class="tradition-card__container">
+  <router-link class="tradition-card__container" to="/1/0bjects">
     <div class="tradition-card__text-content text-content">
       <div class="text-content__title">Название</div>
       <div class="text-content__subtitle">Подназвание</div>
@@ -14,7 +14,7 @@ const formattedAmount = computed(() => formattedNumber(5000));
     <div class="tradition-card__transaction-info transaction-info">
       <span class="transaction-info__subtitle">{{ formattedAmount }}</span>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style lang="postcss" scoped>

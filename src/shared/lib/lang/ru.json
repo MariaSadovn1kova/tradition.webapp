@@ -2,7 +2,8 @@
     "projects": {
         "receipts": "Поступления",
         "expenses": "Расходы",
-        "my_projects": "Мои проекты"
+        "my_projects": "Мои проекты",
+        "create_project": "Создать проект"
     },
     "banner": {
         "receipts": "Поступления за сегодня",
