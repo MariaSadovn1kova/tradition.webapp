@@ -4,7 +4,7 @@ import TraditionCard from '../tradition-card/tradition-card.vue'
 </script>
 <template>
     <div class="tradition-list__container">
-        <tradition-card v-for="item in 4" :key="item"/>
+        <tradition-card v-for="item in 10" :key="item"/>
     </div>
 </template>
 
