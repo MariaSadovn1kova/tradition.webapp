@@ -10,7 +10,7 @@ const appStore = useAppStore();
 
 const { t } = useI18n();
 
-const dateTime = DateTime.local(new Date());
+const dateTime = DateTime.local();
 const mods = ['receipts', 'expenses']
 
 const activeMode = computed(() => appStore.getMode);
