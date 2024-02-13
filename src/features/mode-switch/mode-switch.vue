@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { DateTime } from 'luxon'
+
 import { useAppStore } from '@/entities';
+import { formattedNumber } from '@/shared'
 
 const appStore = useAppStore();
 
 const { t } = useI18n();
 
-const activeMode = computed(() => appStore.getMode);
-
+const dateTime = DateTime.local(new Date());
 const mods = ['receipts', 'expenses']
+
+const activeMode = computed(() => appStore.getMode);
+const todaysDay = computed(() => dateTime.toFormat('dd.LL.yyyy'));
+const formattedAmount = computed(() => formattedNumber(20000));
+
 
 const setActiveMode = (value: string): void => {
   appStore.setMode(value);
@@ -27,9 +34,9 @@ const setActiveMode = (value: string): void => {
       >
         {{ $t(`projects.${item}`) }}
       </button>
-      <div class="mode-switch__switches__date">10.02.2024</div>
+      <div class="mode-switch__switches__date">{{ todaysDay }}</div>
     </div>
-    <div class="mode-switch__container">
+    <div :class="[ 'mode-switch__container', { [`mode-switch__container_no-left-radius`]: activeMode === 'receipts' }]">
       <div 
         :class="[ 'mode-switch__container__banner', 'banner', activeMode ]"
       >
@@ -37,7 +44,7 @@ const setActiveMode = (value: string): void => {
           {{ $t(`banner.${activeMode}`) }}
         </div>
         <div class="banner__count">
-          20.000 Р
+          {{ formattedAmount }}
         </div>
       </div>
     </div>
