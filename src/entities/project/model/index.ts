@@ -1,12 +1,19 @@
 import { defineStore } from 'pinia';
 
-interface ProjectState {
-  projects: any
-}
+interface IProject {
+  title: string,
+  objects_number: number,
+  amount_type: string,
+  amount_count: number
+}  
+
+interface IProjectState {
+  projects: IProject[]
+} 
 
 export const useProjectStore = defineStore('project', {
-    state: (): ProjectState => ({
-      projects: 'receipts'
+    state: (): IProjectState => ({
+      projects: []
     }),
     actions: {
       fetchProjects() {
@@ -33,6 +40,7 @@ export const useProjectStore = defineStore('project', {
       }
     },
     getters: {
-      getProjects: (state) => state.projects
+      getProjects: (state) => state.projects,
+      getProjectsCount: (state) => state.projects.length
     },
   });
