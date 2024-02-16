@@ -27,7 +27,7 @@ const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value
   <tradition-loader v-if="!project"/>
   <div v-else class="project-container">
     <h1>{{ project.title }}</h1>
-    <mode-switch />
+    <mode-switch :today-amount="5"/>
     <div class="project-subtitle">
       <span class="project-subtitle__text">{{ $t(`objects.my_objects`) }}</span>
       <span class="project-subtitle__project-count">{{ objectsCount }}</span>

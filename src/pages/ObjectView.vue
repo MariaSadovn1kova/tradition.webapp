@@ -18,9 +18,9 @@ const object = computed(() => projectStore.getObjectById(projectID.value, object
     <span>{{ $t(`projects.create_project`) }}</span>
   </tradition-button>
   <div class="project-container">
-    <h1>{{ object.title }}</h1>
-    <h3>{{ project.title }}</h3>
-    <mode-switch />
+    <h1>{{ object?.title }}</h1>
+    <h3>{{ project?.title }}</h3>
+    <mode-switch :today-amount="5"/>
     
   </div>
 </template>
