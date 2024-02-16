@@ -5,6 +5,10 @@
         "my_projects": "Мои проекты",
         "create_project": "Создать проект"
     },
+    "objects": {
+        "my_objects": "Мои объекты",
+        "create_object": "Создать объект"
+    },
     "banner": {
         "receipts": "Поступления за сегодня",
         "expenses": "Расходы за сегодня"

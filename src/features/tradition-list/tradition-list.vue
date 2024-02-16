@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import TraditionCard from '../tradition-card/tradition-card.vue'
-import type { IProject } from '@/entities/project/model'
+import type { IProject, IObject } from '@/entities/project/model'
 
 const props = defineProps<{
-  items: IProject[];
+  items: IProject[] | IObject[];
+  type: 'project' | 'object';
 }>();
 
-const projects = computed(() => props.items);
+const items = computed(() => props.items);
+const type = computed(() => props.type);
 </script>
 <template>
     <div class="tradition-list__container">
         <tradition-card 
-            v-for="project in projects" 
-            :key="project.id"
-            :item="project"
+            v-for="item in items" 
+            :key="item.id"
+            :item="item"
+            :type="type"
+            :link="`/${type}/${item.id}`"
         />
     </div>
 </template>

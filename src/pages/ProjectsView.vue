@@ -26,7 +26,10 @@ onMounted(() => {
       <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
       <span class="project-subtitle__project-count">{{ projectsCount }}</span>
     </div>
-    <tradition-list :items="projects"/>
+    <tradition-list 
+      :items="projects"
+      :type="'project'"
+    />
   </div>
 </template>
 

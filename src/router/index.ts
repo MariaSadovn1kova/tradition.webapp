@@ -9,12 +9,12 @@ const router = createRouter({
       component: () => import('../pages/ProjectsView.vue'),
     }, 
     {
-      path: '/:projectID/objects',
+      path: '/project/:projectID',
       name: 'objects',
-      component: () => import('@/pages/ObjectsView.vue'),
+      component: () => import('@/pages/ProjectView.vue'),
     }, 
     {
-      path: '/:projectID/:objectID',
+      path: '/object/:objectID',
       name: 'object',
       component: () => import('@/pages/ObjectView.vue'),
     }

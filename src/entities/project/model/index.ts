@@ -1,50 +1,92 @@
 import { defineStore } from 'pinia';
 
+export interface IAmount {
+  type: string;
+  count: number;
+}
+
+export interface ITransaction {
+  id: string;
+  type: string;
+  count: number;
+  date: Date;
+  group?: string; 
+}
+
+export interface IObject {
+  id: string;
+  title: string;
+  amount_today: IAmount;
+  amount_all: IAmount;
+  transactions?: ITransaction[];
+}
+
 export interface IProject {
-  id: string,
-  title: string,
-  objects_number: number,
-  amount_type: string,
-  amount_count: number
+  id: string;
+  title: string;
+  amount_today: IAmount;
+  objects?: IObject[];
 }  
 
 interface IProjectState {
-  projects: IProject[]
+  projects: IProject[];
 } 
 
 export const useProjectStore = defineStore('project', {
     state: (): IProjectState => ({
-      projects: []
-    }),
-    actions: {
-      fetchProjects() {
-        this.projects = [
+      projects: [
+        {
+          id: '1',
+          title: 'Проект 1',
+          amount_today: {
+            type: 'receipts',
+            count: 20000,
+          },
+          objects: [
             {
               id: '1',
-              title: 'Проект 1',
-              objects_number: 3,
-              amount_type: 'receipts',
-              amount_count: 20000
+              title: 'Об 1',
+              amount_today: 
+              {
+                type: 'receipts',
+                count: 10000,
+              },
+              amount_all: 
+              {
+                type: 'receipts',
+                count: 20000,
+              }
             },
             {
-              id: '2',
-              title: 'Проект 2',
-              objects_number: 2,
-              amount_type: 'expenses',
-              amount_count: 30000
+              id: '1',
+              title: 'Об 2',
+              amount_today: 
+              {
+                type: 'receipts',
+                count: 30000,
+              },
+              amount_all: 
+              {
+                type: 'receipts',
+                count: 40000,
+              }
             },
-            {
-              id: '3',
-              title: 'Проект 3',
-              objects_number: 10,
-              amount_type: 'receipts',
-              amount_count: 50000
-            }
-        ]
-      }
+          ]
+        },
+      ]
+    }),
+    actions: {
+      fetchProjects() {}
     },
     getters: {
       getProjects: (state) => state.projects,
-      getProjectsCount: (state) => state.projects.length
+      getProjectById: (state) => (projectID: string):IProject|undefined => state.projects.find((project) => project.id === projectID),
+      getProjectsCount: (state) => state.projects.length,
+      getObjectsCount: (state) => (projectID: string):number => {
+        {
+          const project = state.projects.find((project) => project.id === projectID);
+          return project && project.objects ? project.objects.length : 0;
+        }
+      }
     },
   });

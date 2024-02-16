@@ -1,26 +1,35 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { formattedNumber } from '@/shared'
-import type { IProject } from '@/entities/project/model'
+import type { IProject, IObject } from '@/entities/project/model'
+import { useProjectStore } from '@/entities';
 
 const props = defineProps<{
-  item: IProject;
+  item: IProject | IObject;
+  type: 'project' | 'object';
+  link: string;
 }>();
 
-const project = computed(() => props.item);
-const objectsCount = computed(() => `${props.item.objects_number} ${props.item.objects_number < 4 ? 'объекта' : 'объектов'}`);
-const formattedAmount = computed(() => formattedNumber(props.item.amount_count));
-const roterLink = computed(() => `${props.item.id}/Objects`);
+const route = useRoute();
+const projectStore = useProjectStore();
+
+const item = computed(() => props.item);
+const link = computed(() => props.link);
+
+const projectID = computed(() => route.params.projectID as string);
+const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value));
+const formattedAmount = computed(() => formattedNumber(props.item.amount_today.count));
 </script>
 
 <template>
-  <router-link class="tradition-card__container" :to="roterLink">
+  <router-link class="tradition-card__container" :to="link">
     <div class="tradition-card__text-content text-content">
-      <div class="text-content__title">{{ project.title }}</div>
+      <div class="text-content__title">{{ item.title }}</div>
       <div class="text-content__subtitle">{{ objectsCount }}</div>
     </div>
     <div class="tradition-card__transaction-info transaction-info"> 
-      <span :class="['transaction-info__subtitle', project.amount_type]">{{ formattedAmount }}</span>
+      <span :class="['transaction-info__subtitle', item.amount_today.count]">{{ formattedAmount }}</span>
     </div>
   </router-link>
 </template>
