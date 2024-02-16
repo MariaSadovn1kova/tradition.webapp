@@ -6,6 +6,11 @@ import { DateTime } from 'luxon'
 import { useAppStore } from '@/entities';
 import { formattedNumber } from '@/shared'
 
+const props = defineProps<{
+  todayAmount: number;
+  allAmount?: number;
+}>();
+
 const appStore = useAppStore();
 
 const { t } = useI18n();
@@ -15,7 +20,7 @@ const mods = ['receipts', 'expenses']
 
 const activeMode = computed(() => appStore.getMode);
 const todaysDay = computed(() => dateTime.toFormat('dd.LL.yyyy'));
-const formattedAmount = computed(() => formattedNumber(20000));
+const formattedAmount = computed(() => formattedNumber(props.todayAmount));
 
 
 const setActiveMode = (value: string): void => {

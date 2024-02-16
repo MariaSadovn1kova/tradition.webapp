@@ -14,7 +14,7 @@ const router = createRouter({
       component: () => import('@/pages/ProjectView.vue'),
     }, 
     {
-      path: '/object/:objectID',
+      path: '/project/:projectID/:objectID',
       name: 'object',
       component: () => import('@/pages/ObjectView.vue'),
     }

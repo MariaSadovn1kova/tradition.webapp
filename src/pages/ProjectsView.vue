@@ -10,7 +10,7 @@ const { t } = useI18n();
 
 const projects = computed(() => projectStore.getProjects);
 const projectsCount = computed(() => projectStore.getProjectsCount);
-
+const projectsSumAmount = computed(() => projectStore.getProjectSumAmount);
 onMounted(() => {
   projectStore.fetchProjects();
 });
@@ -21,7 +21,9 @@ onMounted(() => {
     <span>{{ $t(`projects.create_project`) }}</span>
   </tradition-button>
   <div class="project-container">
-    <mode-switch />
+    <mode-switch 
+      :today-amount="projectsSumAmount"
+    />
     <div class="project-subtitle">
       <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
       <span class="project-subtitle__project-count">{{ projectsCount }}</span>

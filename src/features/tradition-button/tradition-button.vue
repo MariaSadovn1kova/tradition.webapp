@@ -3,9 +3,14 @@
 </script>
 
 <template>
-    <button class="button__container">
-        <slot/>
-    </button>
+    <div class="button__container">
+        <router-link class="button_main" to="/">
+            <img src="@/assets/img/home.png">
+        </router-link>
+        <button class="button__main">
+            <slot/>
+        </button>
+    </div>  
 </template>
 
 

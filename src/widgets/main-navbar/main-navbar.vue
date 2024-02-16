@@ -6,7 +6,7 @@
   <div class="navbar">
     <div class="navbar__item user">
       <div class="user__avatar">
-          Аватарка
+        <img src="@/assets/img/test_avatar.png">
       </div>
       <div class="user__name">
           Иванова И.И.
@@ -14,7 +14,7 @@
     </div>
     <div class="navbar__item">
       <button class="navbar__item__last-operation">
-        кнопа
+        <img src="@/assets/img/last_operation.png">
       </button>
     </div>
   </div>

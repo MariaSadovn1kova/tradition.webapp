@@ -1,12 +1,32 @@
 .button__container {
-    padding: 18px;
-    border: none;
-    font-weight: 500;
-    color: var(--vt-c-white);
-    border-radius: var(--vt-default-radius);
-    background: var(--vt-c-green-gradient);
+    display: flex;
+    justify-content: space-between;
 
-    &:active {
-        background: var(--vt-c-dark-green-gradient);
+    .button_main {
+        width: 55px;
+        height: 55px;
+        padding: 11px 12px;
+        border-radius: var(--vt-default-radius);
+        background: var(--vt-c-green-gradient);
+
+        img {
+            width: 30px;
+            heigth: 30px;
+        }
+    }
+
+    .button__main {
+        padding: 18px;
+        width: 80%;
+        height: 55px;
+        border: none;
+        font-weight: 500;
+        color: var(--vt-c-white);
+        border-radius: var(--vt-default-radius);
+        background: var(--vt-c-green-gradient);
+    
+        &:active {
+            background: var(--vt-c-dark-green-gradient);
+        }
     }
 }
