@@ -2,15 +2,19 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { ModeSwitch, TraditionList, TraditionButton } from '../features'
-import { useProjectStore } from '@/entities';
+import { useProjectStore, useAppStore } from '@/entities';
 
 const route = useRoute();
 const projectStore = useProjectStore();
+const appStore = useAppStore();
 
+const activeMode = computed(() => appStore.getMode);
 const projectID = computed(() => route.params.projectID as string);
 const objectID = computed(() => route.params.objectID as string);
 const project = computed(() => projectStore.getProjectById(projectID.value));
 const object = computed(() => projectStore.getObjectById(projectID.value, objectID.value));
+const objectTodayAmount = computed(() => activeMode.value === 'expenses' ? object.value.expenses_today : object.value.receipts_today);
+const objectAllAmount = computed(() => activeMode.value === 'expenses' ? object.value.expenses_all : object.value.receipts_all);
 </script>
 
 <template>
@@ -20,8 +24,10 @@ const object = computed(() => projectStore.getObjectById(projectID.value, object
   <div class="project-container">
     <h1>{{ object?.title }}</h1>
     <h3>{{ project?.title }}</h3>
-    <mode-switch :today-amount="5"/>
-    
+    <mode-switch 
+      :today-amount="objectTodayAmount"
+      :all-amount="objectAllAmount"
+    />
   </div>
 </template>
 

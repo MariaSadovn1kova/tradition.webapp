@@ -2,15 +2,18 @@
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { ModeSwitch, TraditionList, TraditionButton } from '../features'
-import { useProjectStore } from '@/entities';
+import { useProjectStore, useAppStore } from '@/entities';
 
 const projectStore = useProjectStore();
+const appStore = useAppStore();
 
 const { t } = useI18n();
 
+const activeMode = computed(() => appStore.getMode);
 const projects = computed(() => projectStore.getProjects);
 const projectsCount = computed(() => projectStore.getProjectsCount);
-const projectsSumAmount = computed(() => projectStore.getProjectSumAmount);
+const projectsSumAmount = computed(() => activeMode.value === 'expenses' ? projectStore.getProjectSumExpenses : projectStore.getProjectSumReceipts);
+
 onMounted(() => {
   projectStore.fetchProjects();
 });

@@ -34,16 +34,29 @@
 
         .mode-switch__container__banner {
             padding: 20px;
-            height: 150px;
-            display: flex;
-            flex-direction: column;
+            height: 180px;
             border-radius: var(--vt-default-radius);
             color: var(--vt-c-white);
+            
+            .banner {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
 
-            .banner__count {
-                margin-top: auto;
-                font-size: 32px;
-                font-weight: 500;
+                .banner__today-count {
+                    margin-top: auto;
+                }
+
+                .banner__all-count__count {
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+
+                .banner__count {
+                    margin-top: auto;
+                    font-size: 34px;
+                    font-weight: 500;
+                }
             }
         }
 

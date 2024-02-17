@@ -21,7 +21,7 @@ const link = computed(() => props.link);
 const activeMode = computed(() => appStore.getMode);
 const projectID = computed(() => route.params.projectID as string);
 const objectsCount = computed(() => projectStore.getObjectsCount(item.value.id));
-const formattedAmount = computed(() => formattedNumber(props.item.amount_today.count));
+const formattedAmount = computed(() => formattedNumber( activeMode.value === 'expenses' ? props.item.expenses_today : props.item.receipts_today));
 </script>
 
 <template>

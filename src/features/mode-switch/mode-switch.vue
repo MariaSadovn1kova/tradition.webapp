@@ -21,7 +21,7 @@ const mods = ['receipts', 'expenses']
 const activeMode = computed(() => appStore.getMode);
 const todaysDay = computed(() => dateTime.toFormat('dd.LL.yyyy'));
 const formattedAmount = computed(() => formattedNumber(props.todayAmount));
-
+const formattedAllAmount = computed(() => props.allAmount ? formattedNumber(props.allAmount) : null );
 
 const setActiveMode = (value: string): void => {
   appStore.setMode(value);
@@ -43,13 +43,25 @@ const setActiveMode = (value: string): void => {
     </div>
     <div :class="[ 'mode-switch__container', { [`mode-switch__container_no-left-radius`]: activeMode === 'receipts' }]">
       <div 
-        :class="[ 'mode-switch__container__banner', 'banner', activeMode ]"
+        :class="[ 'mode-switch__container__banner', activeMode ]"
       >
-        <div class="banner__title">
-          {{ $t(`banner.${activeMode}`) }}
+        <div v-if="!allAmount" class="banner">
+          <div class="banner__title">
+            {{ $t(`banner.${activeMode}`) }}
+          </div>
+          <div class="banner__count">
+            {{ formattedAmount }}
+          </div>
         </div>
-        <div class="banner__count">
-          {{ formattedAmount }}
+        <div v-else class="banner">
+          <div class="banner__all-count">
+            <div class="banner__title">{{ $t(`banner.${activeMode}`) }}</div>
+            <div class="banner__all-count__count">{{ formattedAmount }}</div>
+          </div>
+          <div class="banner__today-count">
+            <div class="banner__title">{{ $t(`all_banner.${activeMode}`) }}</div>
+            <div class="banner__count">{{ formattedAllAmount }}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -8,16 +8,21 @@ import {
   TraditionButton,
   TraditionLoader
 } from '../features';
-import { useProjectStore } from '@/entities';
+import { useProjectStore, useAppStore } from '@/entities';
 
 const { t } = useI18n();
 const route = useRoute();
 const projectStore = useProjectStore();
+const appStore = useAppStore();
 
+const activeMode = computed(() => appStore.getMode);
 const projectID = computed(() => route.params.projectID as string);
 const project = computed(() => projectStore.getProjectById(projectID.value));
 const objects = computed(() => project.value?.objects ? project.value?.objects : null);
 const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value));
+const objectsSumAmount = computed(() => activeMode.value === 'expenses' ? 
+  projectStore.getObjectsSumExpenses(projectID.value): 
+  projectStore.getObjectsSumReceipts(projectID.value));
 </script>
 
 <template>
@@ -27,7 +32,9 @@ const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value
   <tradition-loader v-if="!project"/>
   <div v-else class="project-container">
     <h1>{{ project.title }}</h1>
-    <mode-switch :today-amount="5"/>
+    <mode-switch 
+      :today-amount="objectsSumAmount"
+    />
     <div class="project-subtitle">
       <span class="project-subtitle__text">{{ $t(`objects.my_objects`) }}</span>
       <span class="project-subtitle__project-count">{{ objectsCount }}</span>
@@ -48,12 +55,12 @@ const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value
     display: flex;
 
     .project-subtitle__text {
-    margin-right: 5px;
-    color: var(--vt-c-font-green);
+      margin-right: 5px;
+      color: var(--vt-c-font-green);
     }
     
     .project-subtitle__project-count {
-    color: var(--vt-c-font-grey);
+      color: var(--vt-c-font-grey);
     }
   }
 }

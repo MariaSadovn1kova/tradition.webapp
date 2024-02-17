@@ -1,10 +1,5 @@
 import { defineStore } from 'pinia';
 
-export interface IAmount {
-  type: string;
-  count: number;
-}
-
 export interface ITransaction {
   id: string;
   type: string;
@@ -16,15 +11,18 @@ export interface ITransaction {
 export interface IObject {
   id: string;
   title: string;
-  amount_today: IAmount;
-  amount_all: IAmount;
+  expenses_today: number;
+  expenses_all: number;
+  receipts_today: number;
+  receipts_all: number;
   transactions?: ITransaction[];
 }
 
 export interface IProject {
   id: string;
   title: string;
-  amount_today: IAmount;
+  expenses_today: number;
+  receipts_today: number;
   objects?: IObject[];
 }  
 
@@ -38,76 +36,40 @@ export const useProjectStore = defineStore('project', {
         {
           id: '1',
           title: 'Проект 1',
-          amount_today: {
-            type: 'receipts',
-            count: 20000,
-          },
+          expenses_today: 70,
+          receipts_today: 100,
           objects: [
             {
               id: '1',
               title: 'Об 1',
-              amount_today: 
-              {
-                type: 'receipts',
-                count: 10000,
-              },
-              amount_all: 
-              {
-                type: 'receipts',
-                count: 20000,
-              }
+              expenses_today: 3000,
+              expenses_all: 7000,
+              receipts_today: 200,
+              receipts_all: 3000,
             },
             {
-              id: '1',
+              id: '2',
               title: 'Об 2',
-              amount_today: 
-              {
-                type: 'receipts',
-                count: 30000,
-              },
-              amount_all: 
-              {
-                type: 'receipts',
-                count: 40000,
-              }
+              expenses_today: 3000,
+              expenses_all: 7000,
+              receipts_today: 200,
+              receipts_all: 3000,
             },
           ]
         },
         {
           id: '2',
           title: 'Проект 2',
-          amount_today: {
-            type: 'receipts',
-            count: 5,
-          },
+          expenses_today: 7,
+          receipts_today: 100,
           objects: [
             {
               id: '1',
               title: 'Об 1',
-              amount_today: 
-              {
-                type: 'receipts',
-                count: 10000,
-              },
-              amount_all: 
-              {
-                type: 'receipts',
-                count: 20000,
-              }
-            },
-            {
-              id: '1',
-              title: 'Об 2',
-              amount_today: 
-              {
-                type: 'receipts',
-                count: 30000,
-              },
-              amount_all: 
-              {
-                type: 'receipts',
-                count: 40000,
-              }
+              expenses_today: 3000,
+              expenses_all: 7000,
+              receipts_today: 200,
+              receipts_all: 3000,
             },
           ]
         }
@@ -120,7 +82,21 @@ export const useProjectStore = defineStore('project', {
       getProjects: (state) => state.projects,
       getProjectById: (state) => (projectID: string):IProject|undefined => state.projects.find((project) => project.id === projectID),
       getProjectsCount: (state) => state.projects.length,
-      getProjectSumAmount: (state) => state.projects.reduce((sum, item) => sum + item.amount_today.count, 0),
+      getProjectSumExpenses: (state) => state.projects.reduce((sum, item) => sum + item.expenses_today, 0),
+      getProjectSumReceipts: (state) => state.projects.reduce((sum, item) => sum + item.receipts_today, 0),
+
+      getObjectsSumExpenses: (state) => (projectID: string):number => {
+        {
+          const project = state.projects.find((project) => project.id === projectID);
+          return project?.objects ? project.objects.reduce((sum, item) => sum + item.expenses_today, 0) : 0
+        }
+      },
+      getObjectsSumReceipts: (state) => (projectID: string):number => {
+        {
+          const project = state.projects.find((project) => project.id === projectID);
+          return project?.objects ? project.objects.reduce((sum, item) => sum + item.receipts_today, 0) : 0
+        }
+      },
       getObjectById: (state) => (projectID: string, objectID: string):IObject|null => {
         {
           const project = state.projects.find((project) => project.id === projectID);
