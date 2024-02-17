@@ -26,7 +26,7 @@ const objectsSumAmount = computed(() => activeMode.value === 'expenses' ?
 </script>
 
 <template>
-  <tradition-button class="main-button"> 
+  <tradition-button class="main-button" :link="'/create/object'"> 
     <span>{{ $t(`objects.create_object`) }}</span>
   </tradition-button>
   <tradition-loader v-if="!project"/>

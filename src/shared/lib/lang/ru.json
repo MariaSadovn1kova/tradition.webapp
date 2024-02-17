@@ -7,7 +7,11 @@
     },
     "objects": {
         "my_objects": "Мои объекты",
-        "create_object": "Создать объект"
+        "create_object": "Создать объект",
+        "create_transaction": "Добавить платеж",
+        "transactions": "Платежи",
+        "information": "Информация",
+        "docs": "Документы"
     },
     "banner": {
         "receipts": "Поступления за сегодня",
@@ -16,5 +20,8 @@
     "all_banner": {
         "receipts": "Поступления за все время",
         "expenses": "Расходы за все время"
+    },
+    "transaction": {
+        "object_budget": "Бюджет объекта"
     }
 }

@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <tradition-button class="main-button"> 
+  <tradition-button class="main-button" :link="'/create/project'"> 
     <span>{{ $t(`projects.create_project`) }}</span>
   </tradition-button>
   <div class="project-container">

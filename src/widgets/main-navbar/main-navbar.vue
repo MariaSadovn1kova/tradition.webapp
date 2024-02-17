@@ -13,13 +13,13 @@
       </div>
     </div>
     <div class="navbar__item">
-      <button class="navbar__item__last-operation">
+      <router-link class="navbar__item__last-operation" to="/last-transaction">
         <img src="@/assets/img/last_operation.png">
-      </button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <style lang="postcss" scoped>
 @import './main-navbar.pcss';
-</style>
+</style>s

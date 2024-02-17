@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+const props = defineProps<{
+  link: string
+}>();
 </script>
 
 <template>
@@ -7,9 +9,9 @@
         <router-link class="button_main" to="/">
             <img src="@/assets/img/home.png">
         </router-link>
-        <button class="button__main">
+        <router-link class="button__main" :to="props.link">
             <slot/>
-        </button>
+        </router-link>
     </div>  
 </template>
 

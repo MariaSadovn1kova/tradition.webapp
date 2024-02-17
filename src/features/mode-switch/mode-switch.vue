@@ -55,12 +55,12 @@ const setActiveMode = (value: string): void => {
         </div>
         <div v-else class="banner">
           <div class="banner__all-count">
-            <div class="banner__title">{{ $t(`banner.${activeMode}`) }}</div>
-            <div class="banner__all-count__count">{{ formattedAmount }}</div>
+            <div class="banner__title">{{ $t(`all_banner.${activeMode}`) }}</div>
+            <div class="banner__all-count__count">{{ formattedAllAmount }}</div>
           </div>
           <div class="banner__today-count">
-            <div class="banner__title">{{ $t(`all_banner.${activeMode}`) }}</div>
-            <div class="banner__count">{{ formattedAllAmount }}</div>
+            <div class="banner__title">{{ $t(`banner.${activeMode}`) }}</div>
+            <div class="banner__count">{{ formattedAmount }}</div>
           </div>
         </div>
       </div>

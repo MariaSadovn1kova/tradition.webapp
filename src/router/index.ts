@@ -10,13 +10,43 @@ const router = createRouter({
     }, 
     {
       path: '/project/:projectID',
-      name: 'objects',
+      name: 'project',
       component: () => import('@/pages/ProjectView.vue'),
     }, 
     {
       path: '/project/:projectID/:objectID',
       name: 'object',
-      component: () => import('@/pages/ObjectView.vue'),
+      component: () => import('@/pages/object-view/ObjectView.vue'),
+    },
+    {
+      path: '/last-transaction',
+      name: 'last-transaction',
+      component: () => import('@/pages/LastTransaction.vue'),
+    },
+    {
+      path: '/create',
+      name: 'create',
+      children: [
+        {
+          path: 'project',
+          name: 'create-project',
+          component: () => import('@/pages/CreateProject.vue'),
+        },
+        {
+          path: 'object',
+          name: 'create-object',
+          component: () => import('@/pages/CreateObject.vue'),
+        },
+        {
+          path: 'transaction',
+          name: 'create-transaction',
+          component: () => import('@/pages/CreateTransaction.vue'),
+        }
+      ]
+    },
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/',
     }
   ]
 })
