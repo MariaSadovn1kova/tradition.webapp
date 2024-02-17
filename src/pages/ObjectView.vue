@@ -13,8 +13,18 @@ const projectID = computed(() => route.params.projectID as string);
 const objectID = computed(() => route.params.objectID as string);
 const project = computed(() => projectStore.getProjectById(projectID.value));
 const object = computed(() => projectStore.getObjectById(projectID.value, objectID.value));
-const objectTodayAmount = computed(() => activeMode.value === 'expenses' ? object.value.expenses_today : object.value.receipts_today);
-const objectAllAmount = computed(() => activeMode.value === 'expenses' ? object.value.expenses_all : object.value.receipts_all);
+const objectTodayAmount = computed(() => {
+  if (!object.value) {
+    return 0;
+  }
+  return activeMode.value === 'expenses' ? object.value.expenses_today : object.value.receipts_today;
+});
+const objectAllAmount = computed(() => {
+  if (!object.value) {
+    return 0;
+  }
+  return activeMode.value === 'expenses' ? object.value.expenses_all : object.value.receipts_all;
+});
 </script>
 
 <template>
