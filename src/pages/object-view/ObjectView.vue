@@ -15,18 +15,21 @@ const projectID = computed(() => route.params.projectID as string);
 const objectID = computed(() => route.params.objectID as string);
 const project = computed(() => projectStore.getProjectById(projectID.value));
 const object = computed(() => projectStore.getObjectById(projectID.value, objectID.value));
-const objectTodayAmount = computed(() => getObjectAmount('today'));
-const objectAllAmount = computed(() => getObjectAmount('all'));
-const objectExpenses = computed(() => object.value.expenses_all);
-
-const objectMenuOptions = ['transactions','information','docs']
-
-const getObjectAmount = (type: string): number => {
+const objectExpenses = computed(() => object.value?.expenses_all);
+const objectTodayAmount = computed(() => {
   if (!object.value) {
     return 0;
   }
-  return activeMode.value === 'expenses' ? object.value[`expenses_${type}`] : object.value[`receipts_${type}`];
-};
+  return activeMode.value === 'expenses' ? object.value.expenses_today : object.value.receipts_today;
+});
+const objectAllAmount = computed(() => {
+  if (!object.value) {
+    return 0;
+  }
+  return activeMode.value === 'expenses' ? object.value.expenses_all : object.value.receipts_all;
+});
+
+const objectMenuOptions = ['transactions','information','docs']
 
 const setActiveObjectMode = (value: string): void => {
   appStore.setObjectMode(value);
@@ -58,8 +61,8 @@ const setActiveObjectMode = (value: string): void => {
 
     <object-transactions 
       v-if="activeObjectMode === 'transactions'"
-      :all-expenses="object.expenses_all"
-      :all-receipts="object.receipts_all" 
+      :all-expenses="object?.expenses_all"
+      :all-receipts="object?.receipts_all" 
     /> 
     <object-info v-else-if="activeObjectMode === 'information'" />
     <object-doc v-else /> 

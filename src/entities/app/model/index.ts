@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 interface AppState {
   mode: string,
-  object_mode: 'transactions' | 'information' | 'docs'
+  object_mode: string
 }
 
 export const useAppStore = defineStore('app', {
@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app', {
       setMode(currentState: string) {
         this.mode = currentState;
       },
-      setObjectMode(currentState: 'transactions' | 'information' | 'docs') {
+      setObjectMode(currentState: string) {
         this.object_mode = currentState;
       }
     },
