@@ -22,6 +22,7 @@
         "expenses": "Расходы за все время"
     },
     "transaction": {
-        "object_budget": "Бюджет объекта"
+        "object_budget": "Бюджет объекта",
+        "empty_transaction": "Платежей не проводилось"
     }
 }

@@ -2,10 +2,13 @@ import { defineStore } from 'pinia';
 
 export interface ITransaction {
   id: string;
+  title: string;
   type: string;
   count: number;
+  expense_type?: string;
+  author?: string;
+  comment?: string;
   date: Date;
-  group?: string; 
 }
 
 export interface IObject {
@@ -46,6 +49,28 @@ export const useProjectStore = defineStore('project', {
               expenses_all: 7000,
               receipts_today: 200,
               receipts_all: 3000,
+              transactions: [
+                {
+                  id: '1',
+                  title: 'Закупка карниза',
+                  type: 'expenses',
+                  count: 999,
+                  expense_type: 'material',
+                  author: 'ddsds', 
+                  comment: 'sdsd',
+                  date: new Date()
+                },
+                {
+                  id: '2',
+                  title: 'Поступление',
+                  type: 'receipts',
+                  count: 9939,
+                  expense_type: 'material',
+                  author: 'ddsds', 
+                  comment: 'sdsd',
+                  date: new Date()
+                }
+              ]
             },
             {
               id: '2',
@@ -109,6 +134,14 @@ export const useProjectStore = defineStore('project', {
           const project = state.projects.find((project) => project.id === projectID);
           return project && project.objects ? project.objects.length : 0;
         }
-      }
+      },
+
+      getObjectsTransactions: (state) => (projectID: string, objectID: string, activeMode: string):ITransaction[]|null => {
+        {
+          const project = state.projects.find((project) => project.id === projectID);
+          const object = project?.objects ? project.objects.find((object) => object.id === objectID) : null;
+          return object?.transactions ? object.transactions.filter(item => item.type === activeMode) : null 
+        }
+      },
     },
   });

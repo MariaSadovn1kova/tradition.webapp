@@ -1,0 +1,66 @@
+.transaction {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background: var(--vt-c-white);
+    box-shadow: var(--vt-default-shadow);
+    border-radius: var(--vt-default-radius);
+    overflow: hidden;
+    transition: 0.2s;
+    height: 65px;
+
+    &.active {
+        height: 130px;
+    }
+
+    .transaction-container {
+        display: flex;
+        width: 100%;
+
+        .text-content {
+            width: 60%;
+    
+            .text-content__title {
+                color: var(--vt-c-font-black);
+                font-weight: 500;
+            }
+    
+            .text-content__subtitle {
+                color: var(--vt-c-font-grey);
+            }
+        }
+    
+        .tradition-card__arrow {
+            margin-left: auto;
+            margin-right: 5px;
+            padding-top: 10px;  
+    
+            img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    
+        .transaction-info {
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+    
+            .transaction-info__subtitle {
+                text-align: end;
+                font-weight: 500;
+            }
+    
+            .receipts {
+                color: var(--vt-c-font-green);
+            }
+    
+            .expenses {
+                color: var(--vt-c-font-red);
+            }
+        }
+    }
+
+    .transaction_sub-title {
+        color: var(--vt-c-font-grey);
+    }
+}
