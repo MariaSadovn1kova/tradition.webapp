@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
-import { ModeSwitch, TraditionList, TraditionButton } from '../features'
+import { ModeSwitch, TraditionList, TraditionButton } from '@/features'
 import { useProjectStore, useAppStore } from '@/entities';
 
 const projectStore = useProjectStore();
