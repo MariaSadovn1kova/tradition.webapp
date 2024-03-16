@@ -23,7 +23,7 @@ const createProject = (): void => {
       <tradition-input 
         :title="'Название проекта'"
         :place-holder="'Введите название проекта'"
-        v-model="test"
+        :v-model="projectName"
       />
     </div>
 
