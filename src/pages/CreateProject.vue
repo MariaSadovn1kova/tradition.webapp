@@ -1,28 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { TraditionInput, TraditionButton } from '@/features'
+import { useRouter } from "vue-router";
+import { TraditionInput, TraditionButton } from '@/features';
 
 const { t } = useI18n();
 
-const test = ref('djkdkd');
+const router = useRouter();
+const projectName = ref('');
+
+const createProject = (): void => {
+  router.push('/');
+}
 </script>
 
 <template>
   <div class="create-project">
-
-    <tradition-button class="main-button" :link="'/projects'"> 
-      <span>{{ $t(`projects.create_project`) }}</span>
-    </tradition-button>
   
     <h1>{{ $t(`projects.create_project`) }}</h1>
 
     <div class="create-project__container">
       <tradition-input 
         :title="'Название проекта'"
+        :place-holder="'Введите название проекта'"
         v-model="test"
       />
     </div>
+
+    <button
+      class="create-project__button"
+      @click="createProject()"
+    >
+      {{ $t(`projects.create_project`) }}
+    </button>
 
   </div>
 </template>
@@ -32,11 +42,28 @@ const test = ref('djkdkd');
   padding: 0 30px;
   
   .create-project__container {
-    padding: 20px;
+    padding: 20px;  
     background: var(--vt-c-white);
     border-radius: var(--vt-default-radius);
     box-shadow: var(--vt-default-shadow);
     height: 200px;
+  }
+
+  .create-project__button {
+    position: fixed;
+    padding: 18px;
+    height: 55px;
+    border: none;
+    width: calc(100% - 60px);
+    bottom: 20px;
+    left: 30px;
+    color: var(--vt-c-white);
+    border-radius: var(--vt-default-radius);
+    background: var(--vt-c-green-gradient);
+
+    &:active {
+      background: var(--vt-c-dark-green-gradient);
+    }
   }
 }
 </style>

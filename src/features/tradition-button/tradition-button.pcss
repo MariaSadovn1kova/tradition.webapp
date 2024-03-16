@@ -1,33 +1,33 @@
 .button__container {
+  display: flex;
+  justify-content: space-between;
+
+  .button__home  {
+    width: 55px;
+    height: 55px;
+    padding: 11px 12px;
+    border-radius: var(--vt-default-radius);
+    background: var(--vt-c-green-gradient);
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .button__main {
+    padding: 18px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    width: 80%;
+    height: 55px;
+    border: none;
+    color: var(--vt-c-white);
+    border-radius: var(--vt-default-radius);
+    background: var(--vt-c-green-gradient);
 
-    .button_main {
-        width: 55px;
-        height: 55px;
-        padding: 11px 12px;
-        border-radius: var(--vt-default-radius);
-        background: var(--vt-c-green-gradient);
-
-        img {
-            width: 30px;
-            height: 30px;
-        }
+    &:active {
+      background: var(--vt-c-dark-green-gradient);
     }
-
-    .button__main {
-        padding: 18px;
-        display: flex;
-        justify-content: center;
-        width: 80%;
-        height: 55px;
-        border: none;
-        color: var(--vt-c-white);
-        border-radius: var(--vt-default-radius);
-        background: var(--vt-c-green-gradient);
-    
-        &:active {
-            background: var(--vt-c-dark-green-gradient);
-        }
-    }
+  }
 }

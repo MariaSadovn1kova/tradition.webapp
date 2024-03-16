@@ -4,6 +4,7 @@ import { computed } from 'vue';
 const props = defineProps<{
   title: string;
   modelValue: string|number|boolean;
+  placeHolder?: string;
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -26,7 +27,8 @@ const localModelValue = computed({
       type="text" 
       name="input" 
       v-model="localModelValue"
-    />
+      :placeholder="placeHolder"
+    />    
   </div>
 </template>
 
