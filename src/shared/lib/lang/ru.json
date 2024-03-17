@@ -1,28 +1,30 @@
 {
-    "projects": {
-        "receipts": "Поступления",
-        "expenses": "Расходы",
-        "my_projects": "Мои проекты",
-        "create_project": "Создать проект"
-    },
-    "objects": {
-        "my_objects": "Мои объекты",
-        "create_object": "Создать объект",
-        "create_transaction": "Добавить платеж",
-        "transactions": "Платежи",
-        "information": "Информация",
-        "docs": "Документы"
-    },
-    "banner": {
-        "receipts": "Поступления за сегодня",
-        "expenses": "Расходы за сегодня"
-    },
-    "all_banner": {
-        "receipts": "Поступления за все время",
-        "expenses": "Расходы за все время"
-    },
-    "transaction": {
-        "object_budget": "Бюджет объекта",
-        "empty_transaction": "Платежей не проводилось"
-    }
+  "projects": {
+    "receipts": "Поступления",
+    "expenses": "Расходы",
+    "my_projects": "Мои проекты",
+    "create_project": "Создать проект"
+  },
+  "objects": {
+    "my_objects": "Мои объекты",
+    "create_object": "Создать объект",
+    "create_transaction": "Добавить платеж",
+    "transactions": "Платежи",
+    "information": "Информация",
+    "docs": "Документы"
+  },
+  "banner": {
+    "receipts": "Поступления за сегодня",
+    "expenses": "Расходы за сегодня"
+  },
+  "all_banner": {
+    "receipts": "Поступления за все время",
+    "expenses": "Расходы за все время"
+  },
+  "transaction": {
+    "object_budget": "Бюджет объекта",
+    "empty_transaction": "Платежей не проводилось",
+    "type": "Тип платежа",
+    "create": "Создать платеж"
+  }
 }

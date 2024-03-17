@@ -5,6 +5,8 @@ const props = defineProps<{
   title: string;
   modelValue: string|number|boolean;
   placeHolder?: string;
+  isInput?: boolean;
+  isNumber?: boolean;
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -22,13 +24,23 @@ const localModelValue = computed({
 <template>
   <div class="tradition-input">
     <div class="tradition-input__title">{{ props.title }}</div>
+
     <input 
+      v-if="isInput"
       class="tradition-input__input"
-      type="text" 
+      :type="isNumber ? `number` : `text`" 
       name="input" 
       v-model="localModelValue"
       :placeholder="placeHolder"
-    />    
+    /> 
+
+    <textarea
+      v-else 
+      class="tradition-input__input"
+      v-model="localModelValue"
+      :placeholder="placeHolder"
+    />
+    
   </div>
 </template>
 

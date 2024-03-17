@@ -10,6 +10,7 @@ const router = useRouter();
 const projectName = ref('');
 
 const createProject = (): void => {
+  console.log(projectName.value);
   router.push('/');
 }
 </script>
@@ -23,6 +24,7 @@ const createProject = (): void => {
       <tradition-input 
         :title="'Название проекта'"
         :place-holder="'Введите название проекта'"
+        :isInput="true"
         v-model="projectName"
       />
     </div>
