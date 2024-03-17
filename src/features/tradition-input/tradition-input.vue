@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 const props = defineProps<{
   title: string;
-  modelValue: string|number|boolean;
+  modelValue: string | number | readonly string[] | null | undefined;
   placeHolder?: string;
   isInput?: boolean;
   isNumber?: boolean;
