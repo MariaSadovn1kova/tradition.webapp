@@ -2,17 +2,26 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from "vue-router";
+
 import { TraditionInput, TraditionButton } from '@/features';
+
+import { ProjectAPI } from '@/shared';
 
 const { t } = useI18n();
 
 const router = useRouter();
 const projectName = ref('');
 
-const createProject = (): void => {
-  console.log(projectName.value);
-  router.push('/');
-}
+const createProject = async (): Promise<void> => {
+  if (projectName.value) {
+    await ProjectAPI.createProject({
+      title: projectName.value
+    }).then(() => {
+      router.push('/');
+    });
+  };
+};
+
 </script>
 
 <template>

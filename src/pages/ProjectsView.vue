@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n';
-import { ModeSwitch, TraditionList, TraditionButton } from '@/features'
+
+import { ModeSwitch, TraditionList, TraditionButton, TraditionLoader } from '@/features'
 import { useProjectStore, useAppStore } from '@/entities';
 
 const projectStore = useProjectStore();
@@ -10,12 +11,14 @@ const appStore = useAppStore();
 const { t } = useI18n();
 
 const activeMode = computed(() => appStore.getMode);
+
+const isLoading = computed(() => projectStore.getIsLoading);
 const projects = computed(() => projectStore.getProjects);
 const projectsCount = computed(() => projectStore.getProjectsCount);
-const projectsSumAmount = computed(() => activeMode.value === 'expenses' ? projectStore.getProjectSumExpenses : projectStore.getProjectSumReceipts);
+const projectsSumAmount = computed(() => activeMode.value === 'expenses' ? 500 : 700);
 
 onMounted(() => {
-  projectStore.fetchProjects();
+  projectStore.fetchAllProjects();
 });
 </script>
 
@@ -23,19 +26,28 @@ onMounted(() => {
   <tradition-button class="main-button" :link="'/create/project'"> 
     <span>{{ $t(`projects.create_project`) }}</span>
   </tradition-button>
+
   <div class="project-container">
     <mode-switch 
       :today-amount="projectsSumAmount"
     />
-    <div class="project-subtitle">
-      <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
-      <span class="project-subtitle__project-count">{{ projectsCount }}</span>
+
+    <tradition-loader v-if="isLoading"/>
+
+    <div v-else>
+      <div class="project-subtitle">
+        <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
+        <span class="project-subtitle__project-count">{{ projectsCount }}</span>
+      </div>
+      <div>{{ projects }}</div>
+      <!-- <tradition-list 
+        :items="projects"
+        :type="'project'"
+      /> -->
     </div>
-    <tradition-list 
-      :items="projects"
-      :type="'project'"
-    />
+
   </div>
+  
 </template>
 
 
