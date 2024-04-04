@@ -15,7 +15,7 @@ const activeMode = computed(() => appStore.getMode);
 const isLoading = computed(() => projectStore.getIsLoading);
 const projects = computed(() => projectStore.getProjects);
 const projectsCount = computed(() => projectStore.getProjectsCount);
-const projectsSumAmount = computed(() => activeMode.value === 'expenses' ? 500 : 700);
+const projectsSumAmount = computed(() => activeMode.value === "receipts" ? projectStore.getProjectReceiptsSum : projectStore.getProjectExpensesSum);
 
 onMounted(() => {
   projectStore.fetchAllProjects();
@@ -26,7 +26,6 @@ onMounted(() => {
   <tradition-button class="main-button" :link="'/create/project'"> 
     <span>{{ $t(`projects.create_project`) }}</span>
   </tradition-button>
-
   <div class="project-container">
     <mode-switch 
       :today-amount="projectsSumAmount"
@@ -39,11 +38,11 @@ onMounted(() => {
         <span class="project-subtitle__text">{{ $t(`projects.my_projects`) }}</span>
         <span class="project-subtitle__project-count">{{ projectsCount }}</span>
       </div>
-      <div>{{ projects }}</div>
-      <!-- <tradition-list 
+
+      <tradition-list 
         :items="projects"
         :type="'project'"
-      /> -->
+      />
     </div>
 
   </div>

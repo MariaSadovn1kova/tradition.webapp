@@ -12,23 +12,22 @@ const props = defineProps<{
 }>();
 
 const route = useRoute();
-const projectStore = useProjectStore();
 const appStore = useAppStore();
 
 const item = computed(() => props.item);
 const link = computed(() => props.link);
 
 const activeMode = computed(() => appStore.getMode);
+
 const projectID = computed(() => route.params.projectID as string);
-const objectsCount = computed(() => projectStore.getObjectsCount(item.value.id));
-const formattedAmount = computed(() => formattedNumber( activeMode.value === 'expenses' ? props.item.expenses_today : props.item.receipts_today));
+
+const formattedAmount = computed(() => formattedNumber(activeMode.value === 'expenses' ? props.item.expenses_count : props.item.receipts_count));
 </script>
 
 <template>
   <router-link class="tradition-card__container" :to="link">
     <div class="tradition-card__text-content text-content">
       <div class="text-content__title">{{ item.title }}</div>
-      <div class="text-content__subtitle">{{ objectsCount }}</div>
     </div>
     <div class="tradition-card__arrow">
       <img v-if="activeMode === 'receipts'" src="@/assets/img/arrow_up.png">

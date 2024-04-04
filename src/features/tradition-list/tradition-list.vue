@@ -16,19 +16,19 @@ const type = computed(() => props.type);
 const projectID = computed(() => route.params.projectID ? route.params.projectID : null);
 
 const getLink = (id: string): string => {
-    return projectID.value ? `/project/${projectID.value}/${id}` : `/project/${id}`
+  return projectID.value ? `/project/${projectID.value}/${id}` : `/project/${id}`
 }
 </script>
 <template>
-    <div class="tradition-list__container">
-        <tradition-card 
-            v-for="item in items" 
-            :key="item.id"
-            :item="item"
-            :type="type"
-            :link="getLink(item.id)"
-        />
-    </div>
+  <div class="tradition-list__container">
+    <tradition-card 
+      v-for="item in items" 
+      :key="item.id"
+      :item="item"
+      :type="type"
+      :link="getLink(item.id)"
+    />
+  </div>
 </template>
 
 <style lang="postcss" scoped>

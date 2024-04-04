@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { 
@@ -8,34 +8,53 @@ import {
   TraditionButton,
   TraditionLoader
 } from '../features';
-import { useProjectStore, useAppStore } from '@/entities';
+import { useProjectStore, useObjectStore, useAppStore } from '@/entities';
 
 const { t } = useI18n();
 const route = useRoute();
-const projectStore = useProjectStore();
+
 const appStore = useAppStore();
+const projectStore = useProjectStore();
+const objectStore = useObjectStore(); 
 
 const activeMode = computed(() => appStore.getMode);
+
 const projectID = computed(() => route.params.projectID as string);
-const project = computed(() => projectStore.getProjectById(projectID.value));
-const objects = computed(() => project.value?.objects ? project.value?.objects : null);
-const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value));
-const objectsSumAmount = computed(() => activeMode.value === 'expenses' ? 
-  projectStore.getObjectsSumExpenses(projectID.value): 
-  projectStore.getObjectsSumReceipts(projectID.value));
+
+const project = computed(() => projectStore.getActiveProject); 
+const projectSumAmount = computed(() =>{
+  const amount = activeMode.value === "receipts" ? project.value?.receipts_count : project.value?.expenses_count;
+  return amount ?? 0;
+}); 
+
+const objects = computed(() => objectStore.getActiveProjectObjects); 
+
+// const activeMode = computed(() => appStore.getMode);
+// const project = computed(() => projectStore.getProjectById(projectID.value));
+// const objects = computed(() => project.value?.objects ? project.value?.objects : null);
+// const objectsCount = computed(() => projectStore.getObjectsCount(projectID.value));
+// const objectsSumAmount = computed(() => activeMode.value === 'expenses' ? 
+//   projectStore.getObjectsSumExpenses(projectID.value): 
+//   projectStore.getObjectsSumReceipts(projectID.value));
+
+onMounted(() => {
+  projectStore.fetchProjectByID(projectID.value);
+  objectStore.fetchAllObjectsByProjectID(projectID.value);
+});
 </script>
 
 <template>
   <tradition-button class="main-button" :link="'/create/object'"> 
     <span>{{ $t(`objects.create_object`) }}</span>
   </tradition-button>
-  <tradition-loader v-if="!project"/>
-  <div v-else class="project-container">
-    <h1>{{ project.title }}</h1>
+  <div class="project-container">
+    <h1>{{ project?.title }}</h1>
     <mode-switch 
-      :today-amount="objectsSumAmount"
+      :today-amount="projectSumAmount"
     />
-    <div class="project-subtitle">
+
+    <div>{{objects}}</div>
+    <!-- <div class="project-subtitle">
       <span class="project-subtitle__text">{{ $t(`objects.my_objects`) }}</span>
       <span class="project-subtitle__project-count">{{ objectsCount }}</span>
     </div>
@@ -43,7 +62,7 @@ const objectsSumAmount = computed(() => activeMode.value === 'expenses' ?
       v-if="objects"
       :items="objects"
       :type="'object'"
-    />
+    /> -->
   </div>
 </template>
 

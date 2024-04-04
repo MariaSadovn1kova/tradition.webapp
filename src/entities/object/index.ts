@@ -1,0 +1,1 @@
+export { useObjectStore } from './model';

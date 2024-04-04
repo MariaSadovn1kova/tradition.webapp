@@ -4,8 +4,8 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from "vue-router";
 
 import { TraditionInput, TraditionButton } from '@/features';
-
 import { ProjectAPI } from '@/shared';
+import type { TProject } from '@/shared/api/project/models'
 
 const { t } = useI18n();
 
@@ -14,9 +14,10 @@ const projectName = ref('');
 
 const createProject = async (): Promise<void> => {
   if (projectName.value) {
-    await ProjectAPI.createProject({
+    const createProject = ref<TProject.ICreateProject>({
       title: projectName.value
-    }).then(() => {
+    })
+     await ProjectAPI.createProject(createProject.value).then(() => {
       router.push('/');
     });
   };
