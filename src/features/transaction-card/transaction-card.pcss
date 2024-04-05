@@ -1,66 +1,125 @@
+.delete-modal {
+  .delete-modal__title {
+    color: var(--vt-c-font-grey);
+    font-weight: 600;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .delete-modal__btns {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+
+    .btns__cancel {
+      background: inherit;
+      border: none;
+      color: var(--vt-c-font-grey-light);
+      font-size: 16px;
+      padding: 0;
+      font-weight: 600;
+      margin-right: 20px;
+    }
+
+    .btns__submit {
+      color: var(--vt-c-white);
+      border-radius: var(--vt-default-radius);
+      background: var(--vt-c-green-gradient);
+      border: none;
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}
 .transaction {
-    margin-bottom: 10px;
-    padding: 10px 15px;
-    background: var(--vt-c-white);
-    box-shadow: var(--vt-default-shadow);
-    border-radius: var(--vt-default-radius);
-    overflow: hidden;
-    transition: 0.2s;
-    height: 65px;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  background: var(--vt-c-white);
+  box-shadow: var(--vt-default-shadow);
+  border-radius: var(--vt-default-radius);
+  overflow: hidden;
+  transition: 0.2s;
+  height: 65px;
 
-    &.active {
-        height: 130px;
-    }
+  &.active {
+    height: 160px;
+  }
 
-    .transaction-container {
-        display: flex;
-        width: 100%;
+  .transaction-container {
+    display: flex;
+    width: 100%;
 
-        .text-content {
-            width: 60%;
-    
-            .text-content__title {
-                color: var(--vt-c-font-black);
-                font-weight: 500;
-            }
-    
-            .text-content__subtitle {
-                color: var(--vt-c-font-grey);
-            }
-        }
-    
-        .tradition-card__arrow {
-            margin-left: auto;
-            margin-right: 5px;
-            padding-top: 10px;  
-    
-            img {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    
-        .transaction-info {
-            display: flex;
-            flex-direction: column; 
-            justify-content: center;
-    
-            .transaction-info__subtitle {
-                text-align: end;
-                font-weight: 500;
-            }
-    
-            .receipts {
-                color: var(--vt-c-font-green);
-            }
-    
-            .expenses {
-                color: var(--vt-c-font-red);
-            }
-        }
-    }
+    .text-content {
+      width: 60%;
 
-    .transaction_sub-title {
+      .text-content__title {
+        color: var(--vt-c-font-black);
+        font-weight: 500;
+      }
+
+      .text-content__subtitle {
         color: var(--vt-c-font-grey);
+      }
     }
+
+    .tradition-card__arrow {
+      margin-left: auto;
+      margin-right: 5px;
+      padding-top: 10px;  
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .transaction-info {
+      display: flex;
+      flex-direction: column; 
+      justify-content: center;
+
+      .transaction-info__subtitle {
+        text-align: end;
+        font-weight: 500;
+      }
+
+      .receipts {
+        color: var(--vt-c-font-green);
+      }
+
+      .expenses {
+        color: var(--vt-c-font-red);
+      }
+    }
+  }
+
+  .transaction__btns {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .btns__delete-btn {
+      background: inherit;
+      border: none;
+      color: var(--vt-c-font-red);
+      font-size: 16px;
+      padding: 0;
+    }
+    
+    .btns__download-btn {
+      color: var(--vt-c-white);
+      border-radius: var(--vt-default-radius);
+      background: var(--vt-c-green-gradient);
+      border: none;
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  }
+
+  .transaction_sub-title {
+    color: var(--vt-c-font-grey);
+  }
 }

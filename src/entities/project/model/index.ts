@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { ProjectAPI } from '@/shared';
-import type { TProject } from '@/shared/api/project/models'
+import type { TProject } from '@/shared/api/project/models';
 
 interface IProjectState {
   isLoading: boolean;

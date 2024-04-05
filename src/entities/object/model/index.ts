@@ -6,12 +6,14 @@ import type { TObject } from '@/shared/api/object/models'
 interface IObjectState {
   isLoading: boolean;
   activeProjectObjects: TObject.IObject[];
+  activeObject: TObject.IObject | null;
 } 
 
 export const useObjectStore = defineStore('object', {
     state: (): IObjectState => ({
       isLoading: false,
-      activeProjectObjects: []
+      activeProjectObjects: [],
+      activeObject: null
     }),
 
     actions: {
@@ -20,6 +22,13 @@ export const useObjectStore = defineStore('object', {
           this.isLoading = true;
           this.activeProjectObjects = res;
           console.log(res)
+        }).then(() => { this.isLoading = false });
+      },
+
+      async fetchObjectByID(object_ID: string): Promise<void> {
+        await ObjectAPI.getObjectByID(object_ID).then((res: TObject.IObject) => {
+          this.isLoading = true;
+          this.activeObject = res;
         }).then(() => { this.isLoading = false });
       },
 
@@ -33,6 +42,7 @@ export const useObjectStore = defineStore('object', {
     getters: {
       getIsLoading: (state) => state.isLoading,
       getActiveProjectObjects: (state) => state.activeProjectObjects,
+      getActiveObject: (state) => state.activeObject,
       getObjectsCount: (state) => state.activeProjectObjects.length,
     },
   });

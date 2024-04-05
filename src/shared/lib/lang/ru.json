@@ -25,7 +25,11 @@
     "object_budget": "Бюджет объекта",
     "empty_transaction": "Платежей не проводилось",
     "type": "Тип платежа",
-    "create": "Создать платеж"
+    "create": "Создать платеж",
+    "category": "Категория",
+    "all": "Все",
+    "materials": "Материалы",
+    "wages": "ЗП"
   },
   "placeholder": {
     "project": "Проектов пока нет",
@@ -34,7 +38,12 @@
   "button": {
     "back": "< Назад",
     "delete_project": "Удалить проект",
+    "delete_object": "Удалить объект",
+    "delete_transaction": "Удалить платеж",
+    "download": "Скачать",
     "delete_project_submit": "Вы уверены, что хотите удалить проект?",
+    "delete_object_submit": "Вы уверены, что хотите удалить объект?",
+    "delete_transaction_submit": "Вы уверены, что хотите удалить платеж?",
     "cancel": "Отмена",
     "submit": "Подтвердить"
   }

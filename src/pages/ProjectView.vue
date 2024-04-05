@@ -105,7 +105,7 @@ onMounted(() => {
       </h1>
 
       <mode-switch 
-        :today-amount="projectSumAmount"
+        :amount="projectSumAmount"
       />
 
       <div class="project-subtitle">

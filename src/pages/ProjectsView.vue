@@ -28,7 +28,7 @@ onMounted(() => {
   </tradition-button>
   <div class="project-container">
     <mode-switch 
-      :today-amount="projectsSumAmount"
+      :amount="projectsSumAmount"
     />
 
     <tradition-loader v-if="isLoading"/>

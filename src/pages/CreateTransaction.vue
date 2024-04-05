@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref,  computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+
 import { TraditionInput, TraditionButton } from '@/features';
+import { useTransactionStore } from '@/entities';
+import { TransactionAPI } from '@/shared';
+
+import type { TTransaction } from '@/shared/api/transaction/models'
 
 const { t } = useI18n();
-
 const router = useRouter();
+const route = useRoute();
+
+const projectID = computed(() => route.params.projectID as string);
+const objectID = computed(() => route.params.objectID as string);
+
 const transactionType = ref('receipts');
+const transactionCategory = ref('all');
 const transactionSum = ref(0);
 const transactionTitle = ref('');
 const transactionDes = ref('');
@@ -15,18 +25,38 @@ const transactionFrom = ref('');
 const transactionComment = ref('');
 
 const transactionTypes = ['receipts', 'expenses'];
+const transactionCategories = ['all', 'materials', 'wages'];
 
-const createObject = (): void => {
-
-
-  router.push('/');
+const createTransaction = async(): Promise<void> => {
+  const createTransaction = ref<TTransaction.ICreateTransaction>({
+    title: transactionTitle.value ? transactionTitle.value : transactionType.value === 'receipts' ? 'Поступление' : null,
+    type: transactionType.value,
+    sort: transactionType.value === 'expenses' ? transactionCategory.value : null,
+    amount: transactionSum.value,
+    descr: transactionDes.value ? transactionDes.value : null,
+    sender: transactionFrom.value ? transactionFrom.value : null,
+    comment: transactionComment.value ? transactionFrom.value : null,
+    date: new Date(),
+    project_id: projectID.value,
+    object_id: objectID.value
+  })
+  await TransactionAPI.createTransaction(createTransaction.value).then(() => {
+    router.push(`/project/${projectID.value}/${objectID.value}`);
+  });
 }
 </script>
 
 <template>
   <div class="create-transaction">
+
+    <router-link 
+      class="create-transaction__back-btn"
+      :to="`/project/${projectID}/${objectID}`"
+    >
+      {{ $t(`button.back`)}}
+    </router-link >
   
-    <h1>{{ $t(`objects.create_object`) }}</h1>
+    <h1 class="create-transaction__title">{{ $t(`objects.create_object`) }}</h1>
 
     <div class="create-transaction__container">
 
@@ -44,6 +74,24 @@ const createObject = (): void => {
         :value="type"
       >
         {{ $t(`projects.${type}`) }}
+      </option>
+    </select>
+
+    <div class="create-transaction__select-title">
+      {{ $t(`transaction.category`) }}
+    </div>
+
+    <select 
+      v-if="transactionType === 'expenses'"
+      v-model="transactionCategory"
+      class="create-transaction__select"
+    >
+      <option 
+        v-for="type in transactionCategories"
+        :key="`option__${type}`"
+        :value="type"
+      >
+        {{ $t(`transaction.${type}`) }}
       </option>
     </select>
 
@@ -96,7 +144,7 @@ const createObject = (): void => {
     
     <button
       class="create-transaction__button"
-      @click="createObject()"
+      @click="createTransaction()"
     >
       {{ $t(`transaction.create`) }}
     </button>
@@ -107,6 +155,19 @@ const createObject = (): void => {
 <style lang="postcss" scoped>
 .create-transaction {
   padding: 0 30px;
+
+  .create-transaction__back-btn {
+    background: inherit;
+    border: none;
+    color: var(--vt-c-font-grey);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0;
+  }
+
+  .create-transaction__title {
+    margin-top: 20px;
+  }
   
   .create-transaction__container {
     padding: 20px;  

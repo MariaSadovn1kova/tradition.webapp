@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { useProjectStore, useAppStore } from '@/entities';
+
+import { useProjectStore, useAppStore, useTransactionStore } from '@/entities';
 import { TransactionCard } from '@/features'
-import type { ITransaction } from '@/entities/project/model';
+
+import type { TTransaction } from '@/shared/api/transaction/models';
 
 const props = defineProps<{
   allExpenses: number;
   allReceipts: number;
 }>();
 
+const { t } = useI18n();
 const route = useRoute();
-const projectStore = useProjectStore();
 const appStore = useAppStore();
+const projectStore = useProjectStore();
+const transactionStore = useTransactionStore();
 
 const activeMode = computed(() => appStore.getMode);
 const projectID = computed(() => route.params.projectID as string);
 const objectID = computed(() => route.params.objectID as string);
-const objectTransactions = computed(() => projectStore.getObjectsTransactions(projectID.value, objectID.value, activeMode.value));
 
-const result = computed(() => objectTransactions.value ? objectTransactions.value.reduce((acc: { title: string, items: ITransaction[] }[], currentItem: ITransaction) => {
+const isLoading = computed(() => transactionStore.getIsLoading);
+const transactions = computed(() => transactionStore.getActiveObjectTransactions);
+
+const activeTransactions = computed(() => transactions.value.filter((item: TTransaction.ITransaction) => item.type === activeMode.value));
+
+const result = computed(() => activeTransactions.value ? activeTransactions.value.reduce((acc: { title: string, items: TTransaction.ITransaction[] }[], currentItem: TTransaction.ITransaction) => {
   const currentDate = new Date(currentItem.date);
   const today = new Date();
 
@@ -48,7 +56,13 @@ const result = computed(() => objectTransactions.value ? objectTransactions.valu
   return acc;
 }, []) : null);
 
-const { t } = useI18n();
+const fetchTransactions = async (): Promise<void> => {
+  transactionStore.fetchObjectTransactionsByID(objectID.value);
+};
+
+onMounted(() => {
+  transactionStore.fetchObjectTransactionsByID(objectID.value);
+});
 </script>
 
 <template>
@@ -60,7 +74,7 @@ const { t } = useI18n();
         <span class="budget__sum__expenses">{{ props.allReceipts }}</span>
       </div>
     </div>
-  
+
     <div 
       v-if="result" 
       class="transactions-container"
@@ -74,7 +88,10 @@ const { t } = useI18n();
           v-for="transaction in block.items" 
           :key="`${transaction.title}_transaction`"
         >
-          <transaction-card :transaction="transaction"/>
+          <transaction-card 
+            :transaction="transaction"
+            @update-transactions="fetchTransactions()"
+          />
         </div>
       </div>
     </div>

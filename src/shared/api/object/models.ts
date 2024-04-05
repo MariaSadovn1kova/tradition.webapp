@@ -1,7 +1,7 @@
 export namespace TObject {
 
   export interface IObject {
-    id: number
+    id: string
     title: string
     descr: string|null
     project_id: number
