@@ -27,8 +27,15 @@ const createProject = async (): Promise<void> => {
 
 <template>
   <div class="create-project">
+
+    <router-link 
+      class="create-project__back-btn"
+      :to="`/`"
+    >
+      {{ $t(`button.back`)}}
+    </router-link >
   
-    <h1>{{ $t(`projects.create_project`) }}</h1>
+    <h1 class="create-project__title">{{ $t(`projects.create_project`) }}</h1>
 
     <div class="create-project__container">
       <tradition-input 
@@ -52,6 +59,19 @@ const createProject = async (): Promise<void> => {
 <style lang="postcss" scoped>
 .create-project {
   padding: 0 30px;
+
+  .create-project__back-btn {
+    background: inherit;
+    border: none;
+    color: var(--vt-c-font-grey);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0;
+  }
+
+  .create-project__title {
+    margin-top: 20px;
+  }
   
   .create-project__container {
     padding: 20px;  

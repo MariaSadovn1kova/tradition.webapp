@@ -19,19 +19,20 @@ export const useObjectStore = defineStore('object', {
         await ObjectAPI.getAllObjectsByProjectID(project_ID).then((res: TObject.IObject[]) => {
           this.isLoading = true;
           this.activeProjectObjects = res;
+          console.log(res)
         }).then(() => { this.isLoading = false });
       },
 
       async createObject(project_ID: string): Promise<void> {
         await ObjectAPI.getAllObjectsByProjectID(project_ID).then((res: TObject.IObject[]) => {
           this.isLoading = true;
-          this.activeProjectObjects = res;
         }).then(() => { this.isLoading = false });
       }
     },
 
     getters: {
       getIsLoading: (state) => state.isLoading,
-      getActiveProjectObjects: (state) => state.activeProjectObjects
+      getActiveProjectObjects: (state) => state.activeProjectObjects,
+      getObjectsCount: (state) => state.activeProjectObjects.length,
     },
   });

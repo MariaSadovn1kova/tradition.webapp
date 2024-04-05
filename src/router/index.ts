@@ -33,12 +33,12 @@ const router = createRouter({
           component: () => import('@/pages/CreateProject.vue'),
         },
         {
-          path: 'object',
+          path: ':projectID/object',
           name: 'create-object',
           component: () => import('@/pages/CreateObject.vue'),
         },
         {
-          path: 'transaction',
+          path: ':projectID/:objectID/transaction',
           name: 'create-transaction',
           component: () => import('@/pages/CreateTransaction.vue'),
         }

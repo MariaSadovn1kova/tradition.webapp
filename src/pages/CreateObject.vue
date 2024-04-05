@@ -1,26 +1,51 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+
 import { TraditionInput, TraditionButton } from '@/features';
+import { ObjectAPI } from '@/shared';
+import type { TObject } from '@/shared/api/object/models';
 
 const { t } = useI18n();
 
+const route = useRoute();
 const router = useRouter();
+
+const projectID = computed(() => route.params.projectID as string);
+
 const objectName = ref('');
 const objectDes = ref('');
 
-const createObject = (): void => {
-  console.log(objectName.value);
-  console.log(objectDes.value);
-  router.push('/');
-}
+const createObject = async (): Promise<void> => {
+  if (objectName.value && projectID.value) {
+
+    const createObject = ref<TObject.ICreateObject>({
+      title: objectName.value,
+      descr: objectDes.value ? objectDes.value : null,
+      project_id: projectID.value
+    })
+
+     await ObjectAPI.createObject(createObject.value).then(() => {
+      router.push(`/project/${projectID.value}`);
+    });
+  };
+};
 </script>
 
 <template>
   <div class="create-object">
-  
-    <h1>{{ $t(`objects.create_object`) }}</h1>
+
+    <router-link 
+      class="create-object__back-btn"
+      :to="`/project/${projectID}`"
+    >
+      {{ $t(`button.back`)}}
+    </router-link >
+
+    <h1 class="create-object__title">
+      {{ $t(`objects.create_object`) }}
+    </h1>
 
     <div class="create-object__container">
       <tradition-input 
@@ -58,7 +83,20 @@ const createObject = (): void => {
 <style lang="postcss" scoped>
 .create-object {
   padding: 0 30px;
+
+  .create-object__back-btn {
+    background: inherit;
+    border: none;
+    color: var(--vt-c-font-grey);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0;
+  }
   
+  .create-object__title {
+    margin-top: 20px;
+  }
+
   .create-object__container {
     padding: 20px;  
     background: var(--vt-c-white);

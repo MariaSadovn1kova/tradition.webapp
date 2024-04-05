@@ -5,6 +5,7 @@ import TraditionButton from './tradition-button/tradition-button.vue'
 import TraditionLoader from './tradition-loader/tradition-loader.vue'
 import TraditionInput from './tradition-input/tradition-input.vue'
 import TransactionCard from './transaction-card/transaction-card.vue'
+import TraditionModal from './tradition-modal/tradition-modal.vue'
 
 export {
   ModeSwitch,
@@ -13,5 +14,6 @@ export {
   TraditionButton,
   TraditionLoader,
   TraditionInput,
-  TransactionCard
+  TransactionCard,
+  TraditionModal
 }

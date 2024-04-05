@@ -13,6 +13,9 @@ export default {
   getProjectByID: (project_ID: string):
   Promise<TProject.IProject> => axios.get<TProject.IProject>(`${baseURL}/${project_ID}`).then((res) => res.data),
 
+  deleteProject: (project_ID: string):
+  Promise<TProject.IProject> => axios.delete<TProject.IProject>(`${baseURL}/${project_ID}`).then((res) => res.data),
+
   createProject: (data: TProject.ICreateProject):
   Promise<TProject.IProject> => axios.post<TProject.IProject>(`${baseURL}`, data).then((res) => res.data),
 }

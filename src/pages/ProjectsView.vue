@@ -39,7 +39,15 @@ onMounted(() => {
         <span class="project-subtitle__project-count">{{ projectsCount }}</span>
       </div>
 
+      <div 
+        v-if="!projectsCount"
+        class="project__placeholder"
+      >
+        {{ $t(`placeholder.project`) }}
+      </div>
+
       <tradition-list 
+        v-else
         :items="projects"
         :type="'project'"
       />
@@ -65,6 +73,13 @@ onMounted(() => {
     .project-subtitle__project-count {
       color: var(--vt-c-font-grey);
     }
+  }
+
+  .project__placeholder {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    color: var(--vt-c-font-grey-light);
   }
 }
 </style>

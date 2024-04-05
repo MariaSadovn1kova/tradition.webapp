@@ -33,6 +33,10 @@ export const useProjectStore = defineStore('project', {
           this.isLoading = true;
           this.activeProject = res;
         }).then(() => { this.isLoading = false });
+      },
+
+      async deleteProject(project_ID: string): Promise<void> {
+        await ProjectAPI.deleteProject(project_ID);
       }
     },
 
