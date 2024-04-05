@@ -22,7 +22,7 @@ const link = computed(() => props.link);
 
 const activeMode = computed(() => appStore.getMode);
 
-const projectID = computed(() => route.params.projectID as string);(item as TTask.ITask)
+const projectID = computed(() => route.params.projectID as string);
 
 const formattedAmount = computed(() => formattedNumber(activeMode.value === 'expenses' ? props.item.expenses_count : props.item.receipts_count));
 </script>
