@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { DateTime } from 'luxon'
 
 import { TraditionModal } from '@/features';
-import { formattedNumber, TransactionAPI } from '@/shared'
+import { formattedNumber, TransactionAPI, FileAPI } from '@/shared'
 import { useAppStore, useTransactionStore } from '@/entities';
 
 import type { TTransaction } from '@/shared/api/transaction/models'
@@ -35,6 +35,11 @@ const deleteTransaction = async (): Promise<void> => {
     emit('update-transactions');
   });
   showDeleteModal.value = false;
+};
+
+const test = async (): Promise<void> => {
+  const response = FileAPI.downloadFile('15');
+
 };
 </script>
 
@@ -92,6 +97,7 @@ const deleteTransaction = async (): Promise<void> => {
           <button 
             class="btns__download-btn" 
             v-if="transaction.type === 'expenses'"
+            @click.stop="test()"
           >
             {{ $t(`button.download`)}}
           </button>

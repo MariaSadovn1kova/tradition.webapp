@@ -5,7 +5,7 @@ import { useRouter, useRoute } from "vue-router";
 
 import { TraditionInput, TraditionButton } from '@/features';
 import { useTransactionStore } from '@/entities';
-import { TransactionAPI } from '@/shared';
+import { TransactionAPI, FileAPI } from '@/shared';
 
 import type { TTransaction } from '@/shared/api/transaction/models'
 
@@ -23,6 +23,7 @@ const transactionTitle = ref('');
 const transactionDes = ref('');
 const transactionFrom = ref('');
 const transactionComment = ref('');
+const transactionFile = ref<File|null>();
 
 const transactionTypes = ['receipts', 'expenses'];
 const transactionCategories = ['all', 'materials', 'wages'];
@@ -40,10 +41,25 @@ const createTransaction = async(): Promise<void> => {
     project_id: projectID.value,
     object_id: objectID.value
   })
-  await TransactionAPI.createTransaction(createTransaction.value).then(() => {
+  await TransactionAPI.createTransaction(createTransaction.value).then((res: TTransaction.ITransaction) => {
+    if(transactionFile.value) {
+      handleFileUpload(transactionFile.value, res.id);
+    }
     router.push(`/project/${projectID.value}/${objectID.value}`);
   });
 }
+
+const handleFileInput = async(event: Event): Promise<void>  => {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  transactionFile.value = file;
+}
+
+const handleFileUpload = (file: File, transaction_id: string): Promise<string> => new Promise(() => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('transaction_id', transaction_id);
+  FileAPI.createFile(formData);
+});
 </script>
 
 <template>
@@ -138,6 +154,8 @@ const createTransaction = async(): Promise<void> => {
       v-if="transactionType === 'expenses'"
       type="file"
       class="create-transaction__file-input"
+      max-size="52428800"
+      @input="handleFileInput($event)"
     />
 
     </div>
