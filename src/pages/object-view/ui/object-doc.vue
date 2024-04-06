@@ -3,7 +3,14 @@
 </script>
 
 <template>
-  <div>Тут документики будут</div>
+  <div>
+    <input 
+      type="file"
+      accept=".pdf, .docx, .xlsx"
+      class="create-object__file-input"
+      multiple
+    />
+  </div>
 </template>
 
 <style>

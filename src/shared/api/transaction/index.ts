@@ -7,6 +7,9 @@ import type { TTransaction } from './models';
 const baseURL = `${API_URL.app}/transaction`;
 
 export default {
+  getAllTransaction: ():
+  Promise<TTransaction.ITransaction[]> => axios.get<TTransaction.ITransaction[]>(`${baseURL}`).then((res) => res.data),
+
   getAllObjectTransaction: (object_ID: string):
   Promise<TTransaction.ITransaction[]> => axios.get<TTransaction.ITransaction[]>(`${baseURL}/objects/${object_ID}`).then((res) => res.data),
 

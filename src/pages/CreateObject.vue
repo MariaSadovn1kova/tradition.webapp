@@ -60,14 +60,6 @@ const createObject = async (): Promise<void> => {
         :place-holder="'Введите описание объекта'"
         v-model="objectDes"
       />
-
-      <input 
-        type="file"
-        accept=".pdf, .docx, .xlsx"
-        class="create-object__file-input"
-        multiple
-      />
-
     </div>
     
     <button

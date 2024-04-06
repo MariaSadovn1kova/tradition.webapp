@@ -66,14 +66,14 @@ const deleteTransaction = async (): Promise<void> => {
     <div class="transaction-container">
       <div class="tradition-card__text-content text-content">
         <div class="text-content__title">{{ transaction.title }}</div>
-        <div class="text-content__subtitle">{{ transaction.sort ?? formattedAuthor }}</div>
+        <div class="text-content__subtitle">{{ $t(`transaction.${transaction.sort}`)  ?? formattedAuthor }}</div>
       </div>
       <div class="tradition-card__arrow">
-        <img v-if="activeMode === 'receipts'" src="@/assets/img/arrow_up.png">
+        <img v-if="transaction.type === 'receipts'" src="@/assets/img/arrow_up.png">
         <img v-else src="@/assets/img/arrow_down.png">
       </div>
       <div class="tradition-card__transaction-info transaction-info"> 
-        <span :class="['transaction-info__subtitle', activeMode]">{{ formattedAmount }}</span>
+        <span :class="['transaction-info__subtitle', transaction.type]">{{ formattedAmount }}</span>
       </div>
     </div>
       <div 

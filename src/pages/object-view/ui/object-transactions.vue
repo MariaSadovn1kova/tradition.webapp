@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useProjectStore, useAppStore, useTransactionStore } from '@/entities';
-import { TransactionCard } from '@/features'
+import { TransactionCard } from '@/features';
 
 import type { TTransaction } from '@/shared/api/transaction/models';
 
@@ -12,6 +12,8 @@ const props = defineProps<{
   allExpenses: number;
   allReceipts: number;
 }>();
+
+const emit = defineEmits(['update-object']);
 
 const { t } = useI18n();
 const route = useRoute();
@@ -58,6 +60,7 @@ const result = computed(() => activeTransactions.value ? activeTransactions.valu
 
 const fetchTransactions = async (): Promise<void> => {
   transactionStore.fetchObjectTransactionsByID(objectID.value);
+  emit('update-object');
 };
 
 onMounted(() => {
@@ -76,7 +79,7 @@ onMounted(() => {
     </div>
 
     <div 
-      v-if="result" 
+      v-if="transactions.length" 
       class="transactions-container"
     >
       <div 

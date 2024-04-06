@@ -48,6 +48,10 @@ const deleteObject = async (): Promise<void> => {
   };
 };
 
+const updateObject = async (): Promise<void> => {
+  objectStore.fetchObjectByID(objectID.value);
+};
+
 onMounted(() => {
   objectStore.fetchObjectByID(objectID.value);
   projectStore.fetchProjectByID(projectID.value);
@@ -123,8 +127,12 @@ onMounted(() => {
       v-if="activeObjectMode === 'transactions'"
       :all-expenses="objectExpenses"
       :all-receipts="objectReceipts" 
+      @update-object="updateObject()"
     /> 
-    <object-info v-else-if="activeObjectMode === 'information'" />
+    <object-info 
+      v-else-if="activeObjectMode === 'information'" 
+      :description="object?.descr ?? 'Описания нет'"
+    />
     <object-doc v-else /> 
     
   </div>
