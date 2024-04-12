@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('../pages/ProjectsView.vue'),
     }, 
     {
+      path: '/signin',
+      name: 'signin',
+      component: () => import('../pages/AuthenticationPage.vue'),
+    }, 
+    {
       path: '/project/:projectID',
       name: 'project',
       component: () => import('@/pages/ProjectView.vue'),

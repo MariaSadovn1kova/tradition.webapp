@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 
 import { useAppStore } from '@/entities';
-import { formattedNumber } from '@/shared'
+import { formattedNumber } from '@/shared';
 
 const props = defineProps<{
   amount: number;

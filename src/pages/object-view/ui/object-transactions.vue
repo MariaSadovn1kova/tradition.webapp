@@ -3,6 +3,8 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
+import { DateTime } from 'luxon';
+
 import { useProjectStore, useAppStore, useTransactionStore } from '@/entities';
 import { TransactionCard } from '@/features';
 
@@ -31,30 +33,20 @@ const transactions = computed(() => transactionStore.getActiveObjectTransactions
 const activeTransactions = computed(() => transactions.value.filter((item: TTransaction.ITransaction) => item.type === activeMode.value));
 
 const result = computed(() => activeTransactions.value ? activeTransactions.value.reduce((acc: { title: string, items: TTransaction.ITransaction[] }[], currentItem: TTransaction.ITransaction) => {
-  const currentDate = new Date(currentItem.date);
-  const today = new Date();
-
-  if (currentDate.toDateString() === today.toDateString()) {
-    const todayItem = acc.find(item => item.title === 'Сегодня');
-    if (todayItem) {
-      todayItem.items.push(currentItem);
-    } else {
-      acc.push({ title: 'Сегодня', items: [currentItem] });
-    }
+  const currentDate = DateTime.fromJSDate(new Date(currentItem.date));
+  const formattedDate = currentDate.toFormat('dd.MM.yy') === DateTime.fromJSDate(new Date()).toFormat('dd.MM.yy') ? "Сегодня" : currentDate.toFormat('dd.MM.yy');
+  const existingGroup = acc.find(group => group.title === formattedDate);
+  
+  
+  if (existingGroup) {
+    existingGroup.items.push(currentItem);
   } else {
-    const diffTime = Math.abs(today.getTime() - currentDate.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays === 1) {
-      const yesterdayItem = acc.find(item => item.title === 'Вчера');
-      if (yesterdayItem) {
-        yesterdayItem.items.push(currentItem);
-      } else {
-        acc.push({ title: 'Вчера', items: [currentItem] });
-      }
-    } else {
-      acc.push({ title: currentItem.date.toString(), items: [currentItem] });
-    }
+    acc.push({
+      title: formattedDate,
+      items: [currentItem]
+    });
   }
+  
   return acc;
 }, []) : null);
 
@@ -79,7 +71,7 @@ onMounted(() => {
     </div>
 
     <div 
-      v-if="transactions.length" 
+      v-if="result" 
       class="transactions-container"
     >
       <div 

@@ -7,6 +7,7 @@ const props = defineProps<{
   placeHolder?: string;
   isInput?: boolean;
   isNumber?: boolean;
+  isPassword?: boolean;
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -28,7 +29,7 @@ const localModelValue = computed({
     <input 
       v-if="isInput"
       class="tradition-input__input"
-      :type="isNumber ? `number` : `text`" 
+      :type="isPassword ? `password` : isNumber ? `number` : `text`" 
       name="input" 
       v-model="localModelValue"
       :placeholder="placeHolder"

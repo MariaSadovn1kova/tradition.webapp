@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { DateTime } from 'luxon'
+import { DateTime } from 'luxon';
 
 import { TraditionModal } from '@/features';
 import { formattedNumber, TransactionAPI, FileAPI } from '@/shared'
@@ -38,8 +38,7 @@ const deleteTransaction = async (): Promise<void> => {
 };
 
 const test = async (): Promise<void> => {
-  const response = FileAPI.downloadFile('15');
-
+  FileAPI.downloadFile('15', 'example', 'png')
 };
 </script>
 

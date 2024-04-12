@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import i18n from '@/shared/lib/lang';
+import './interceptor';
 
 const app = createApp(App)
 
